@@ -21,6 +21,8 @@ import java.util.Scanner;
 
 public class MyService extends Service {
 
+    String message;
+
     private NotificationManager notificationManager;
     public static final int DEFAULT_NOTIFICATION_ID = 101;
 
@@ -74,8 +76,9 @@ public class MyService extends Service {
 
     public void doTask() {
 
+        message = "Message android";
         //создание объекта
-        Runnable httpWork = new HttpWork();
+        Runnable httpWork = new HttpWork(message);
         //создание дочернего потока
         Thread threadNext = new Thread(httpWork);
         //стартуем новыи поток
