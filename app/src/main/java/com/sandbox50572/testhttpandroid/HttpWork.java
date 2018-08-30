@@ -15,11 +15,14 @@ import java.util.Scanner;
 public class HttpWork implements Runnable {
 
     private String message;
+    private String geo;
     private byte[] postData;
 
     //конструктор
     public HttpWork(String message) {
         this.message = message;
+        this.geo = MyLocationListener.imHere.toString();//TODO добавить обновление!!! получение геоданных
+
         this.postData = new  byte[0];
 
     }
@@ -28,13 +31,15 @@ public class HttpWork implements Runnable {
     @Override
     public void run() {
         sendGet();
-        //sendPost(message);
+        //sendPost(geo);
     }
 
 
     private void sendGet(){
 
         for (int i=0; i<10; i++) {
+
+
 
             try{
                 String mystr = "http://192.168.0.12:8080/JollyRoger/send";
@@ -43,7 +48,7 @@ public class HttpWork implements Runnable {
                 con.setRequestMethod("GET");
                 con.setRequestProperty("User-Agent", "Mozilla/5.0");
                 con.setRequestProperty("Accept-Charset", "UTF-8");
-                con.setRequestProperty("message", message +i);
+                con.setRequestProperty("message", geo);
                 InputStream response = con.getInputStream();
                 Scanner s = new Scanner(response).useDelimiter("\\A");
                 String result = s.hasNext() ? s.next() : "";
@@ -66,7 +71,7 @@ public class HttpWork implements Runnable {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void sendPost(String content) {
 
-
+        //message = MyLocationListener.imHere.toString();//получение геоданных
 
         HttpURLConnection conn = null;
         try {

@@ -24,6 +24,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //запуск геолокации
+        MyLocationListener.SetUpLocationListener(this);
+
+
+        //запуск геолокации в новом потоке
+        //final Context mainContext = this;
+        //new Thread(new Runnable() {
+        //    @Override
+        //    public void run() {
+        //        MyLocationListener.SetUpLocationListener(mainContext);
+        //    }
+        //}).start();
+
 
         //находим кнопку
         btnOk = (Button) findViewById(R.id.btnOk);
